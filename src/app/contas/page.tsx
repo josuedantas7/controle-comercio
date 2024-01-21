@@ -5,7 +5,7 @@ const Contas = () => {
 
   return (
     <div>
-        <h1 className='text-[50px] text-center font-semibold my-8'>Contas cadastradas no sistema</h1>
+        <h1 className='text-[50px] text-center font-semibold my-2'>Contas cadastradas no sistema</h1>
         <Suspense fallback={<h1>Carregando dados</h1>}>
             <GetAllDebts />
         </Suspense>
