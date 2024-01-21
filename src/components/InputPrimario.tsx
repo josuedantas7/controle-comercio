@@ -9,9 +9,9 @@ interface InputPrimarioProps {
  
 export default function InputPrimario({label,onChange} : InputPrimarioProps) {
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
+    <div className="w-full flex flex-col gap-2">
       <Label htmlFor="email">{label}</Label>
-      <Input onChange={(e) => onChange(e.target.value)} type="email" id="email" placeholder={`${label}`} />
+      <Input className="text-black" onChange={(e) => onChange(e.target.value)} type="text" id="text" placeholder={`${label}`} />
     </div>
   )
 }
