@@ -10,7 +10,9 @@ import { Label } from "@/components/ui/label"
 
 import { DebtsProps } from '@/interfaces/allInterfaces'
 
-const RegisterDebtForUser = ({data} : { data: {} | undefined}) => {
+import { RegisterDebtProps } from '@/interfaces/allInterfaces'
+
+const RegisterDebtForUser = ({data} : { data: RegisterDebtProps | undefined}) => {
 
     console.log(data)
     const [qtd, setQtd] = useState<number>(1)

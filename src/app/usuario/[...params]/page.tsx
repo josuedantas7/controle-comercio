@@ -65,6 +65,9 @@ async function Usuario({params} : { params : UsuarioProps}){
                     <h1 className='text-center w-1/5'>Valor</h1>
                     <h1 className='text-center w-1/5'>Total</h1>
                 </div>
+                {data?.debts.length === 0 && (
+                    <h1 className='text-2xl text-center font-semibold mt-4'>Nenhuma dívida encontrado</h1>
+                )}
                 {data?.debts.map((item, index) => {
                     return (
                         <div key={index} className='flex justify-between text-2xl items-center border-b border-gray-900'>
