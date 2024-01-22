@@ -1,9 +1,11 @@
 import { db } from '@/services/firebaseConnection'
 import { deleteDoc, doc, getDoc } from 'firebase/firestore'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { RegisterDebtProps } from '@/interfaces/allInterfaces'
 import ModalAddDebts from '@/components/Modal/ModalAddDebts'
 import DeleteDebts from '@/components/Modal/DeleteDebts'
+import DeleteUserDebts from '@/components/Modal/DeleteUserDebts'
+import EditUser from '@/components/Modal/EditUser'
 
 interface UsuarioProps {
     params: string[]
@@ -88,6 +90,8 @@ async function Usuario({params} : { params : UsuarioProps}){
             <div className='absolute flex gap-12 justify-center items-center bottom-16 left-0 right-0'>
                 <ModalAddDebts data={data ?? data} />
                 <DeleteDebts data={data ?? data}/>
+                <DeleteUserDebts data={data ?? data} />
+                <EditUser data={data ?? data} />
             </div>
         </div>
     </div>
