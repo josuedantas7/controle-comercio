@@ -2,7 +2,10 @@
 import React from 'react'
 import RegisterDebtForUser from '../RegisterDebt/RegisterDebtForUser'
 
-const Modal = ({data} : { data: {} | undefined}) => {
+import { RegisterDebtProps } from '@/interfaces/allInterfaces'
+
+const Modal = ({data} : { data: RegisterDebtProps | undefined}) => {
+
   return (
     <div className='flex justify-center'>
         <button className="btn" onClick={() => (document.getElementById('my_modal_1') as HTMLDialogElement)?.showModal()}>Adicionar dívida</button>
