@@ -34,7 +34,7 @@ export default async function GetAllDebts(){
     const debts : AllDebts = await getData()
 
   return (
-    <div className='flex flex-wrap justify-center gap-4 px-20'>
+    <div className='flex flex-wrap justify-center gap-4 px-20 max-[480px]:px-4'>
         {debts.map((debt) => (
             <Link href={`/usuario/${debt.id}`} className='border-2 p-4 w-[300px] rounded-lg' key={debt.id}>
                 <div>
