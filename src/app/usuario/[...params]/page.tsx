@@ -43,6 +43,12 @@ async function Usuario({params} : { params : UsuarioProps}){
         }).format(value);
     }
 
+
+
+    function formatDate(date: string) : string {
+        let newDate = date.slice(0, -5)
+        return newDate
+    }
   return (
     <div className='pt-20'>
         <div className='bg-blue-200 w-[85%] max-[900px]:w-[95%] mx-auto rounded-2xl h-[700px] relative'>
@@ -73,7 +79,7 @@ async function Usuario({params} : { params : UsuarioProps}){
                 {data?.debts.map((item, index) => {
                     return (
                         <div key={index} className='flex justify-between text-2xl items-center max-[900px]:text-lg border-b border-gray-900'>
-                            <h1 className='text-center py-2 w-1/5'>{item.data}</h1>
+                            <h1 className='text-center py-2 w-1/5'>{formatDate(item.data)}</h1>
                             <h1 className='text-center py-2 w-1/5'>{item.item}</h1>
                             <h1 className='text-center py-2 w-1/5'>{item.qtd}</h1>
                             <h1 className='text-center py-2 w-1/5'>{formatNumber(item.value)}</h1>
