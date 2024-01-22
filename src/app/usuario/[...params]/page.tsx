@@ -1,8 +1,9 @@
 import { db } from '@/services/firebaseConnection'
-import { doc, getDoc } from 'firebase/firestore'
+import { deleteDoc, doc, getDoc } from 'firebase/firestore'
 import React from 'react'
 import { RegisterDebtProps } from '@/interfaces/allInterfaces'
 import ModalAddDebts from '@/components/Modal/ModalAddDebts'
+import DeleteDebts from '@/components/Modal/DeleteDebts'
 
 interface UsuarioProps {
     params: string[]
@@ -81,8 +82,9 @@ async function Usuario({params} : { params : UsuarioProps}){
                     Valor Total: {formatNumber(data?.debts.reduce((acc, item) => acc + item.total, 0))}
                 </h1>
             ): ''}
-            <div className='absolute  left-0 right-0 bottom-8'>
+            <div className='absolute flex gap-12 justify-center items-center bottom-16 left-0 right-0'>
                 <ModalAddDebts data={data ?? data} />
+                <DeleteDebts data={data ?? data}/>
             </div>
         </div>
     </div>
