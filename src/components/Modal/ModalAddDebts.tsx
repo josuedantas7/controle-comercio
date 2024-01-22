@@ -4,7 +4,7 @@ import RegisterDebtForUser from '../RegisterDebt/RegisterDebtForUser'
 
 const Modal = ({data} : { data: {} | undefined}) => {
   return (
-    <div className='flex justify-center mt-8'>
+    <div className='flex justify-center'>
         <button className="btn" onClick={() => (document.getElementById('my_modal_1') as HTMLDialogElement)?.showModal()}>Adicionar dívida</button>
         <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
