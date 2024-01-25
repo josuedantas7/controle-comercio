@@ -30,7 +30,8 @@ const RegisterDebt = () => {
         .then(() => {
             clearFields()
             Notification('success', 'Cliente cadastrado com sucesso')
-            router.push('/contas')
+            router.replace('/contas')
+            router.refresh()
         }).catch(() => {
             Notification('error', 'Erro ao cadastrar cliente')
         })
