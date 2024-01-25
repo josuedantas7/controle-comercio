@@ -1,6 +1,7 @@
+'use client'
 import { db } from '@/services/firebaseConnection'
 import { deleteDoc, doc, getDoc } from 'firebase/firestore'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RegisterDebtProps } from '@/interfaces/allInterfaces'
 import ModalAddDebts from '@/components/Modal/ModalAddDebts'
 import DeleteDebts from '@/components/Modal/DeleteDebts'
@@ -12,29 +13,35 @@ interface UsuarioProps {
 }
 
 
-async function getData(id : string) {
+function Usuario({params} : { params : UsuarioProps}){
 
-    const debtsRef = doc(db, 'debts', id)
-
-
-    const docSnap = await getDoc(debtsRef)
-    if (docSnap.exists()) {
-        
-        return {
-            id: docSnap.id,
-            ...docSnap.data()
-        } as RegisterDebtProps
-    }
-    return
-}
-
-async function Usuario({params} : { params : UsuarioProps}){
+    const [data, setData] = useState<RegisterDebtProps>()
 
     let id = params.params[0]
+    
+    async function getData(id : string) {
 
-    const data = await getData(id)
+        const debtsRef = doc(db, 'debts', id)
 
-    console.log(data)
+
+        const docSnap = await getDoc(debtsRef)
+        if (docSnap.exists()) {
+            
+            return {
+                id: docSnap.id,
+                ...docSnap.data()
+            } as RegisterDebtProps
+        }
+        return
+    }
+
+    useEffect(() => {
+        async function response(){
+            const response = await getData(id)
+            setData(response)
+        }
+        response()
+    },[id])
 
     function formatNumber(value: number) {
         return new Intl.NumberFormat("pt-BR", {

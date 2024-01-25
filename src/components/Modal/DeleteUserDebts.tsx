@@ -2,15 +2,14 @@
 import { db } from '@/services/firebaseConnection'
 import { setDoc, collection, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 import React from 'react'
-import { useToast } from "@/components/ui/use-toast"
 
 import { useRouter } from 'next/navigation'
 
 import { RegisterDebtProps } from '@/interfaces/allInterfaces'
+import Notification from '../Notifier/Notification'
 
 const DeleteUserDebts = ({data}: {data: RegisterDebtProps | undefined}) => {
 
-    const { toast } = useToast()
 
     const router = useRouter()
 
@@ -18,25 +17,10 @@ const DeleteUserDebts = ({data}: {data: RegisterDebtProps | undefined}) => {
         if (data) {
             try {
             await deleteDoc(doc(db, "debts", data.id ?? ""))
-            toast({
-                title: "Sucesso",
-                description: "Conta excluida com sucesso",
-                duration: 3000,
-                variant: "destructive",
-                color: "green",
-            });
-            setTimeout(() => {
-                window.location.reload()
-            },1000)
+            Notification('success', 'Conta deletada com sucesso')
             router.push('/')
             } catch (error) {
-                toast({
-                    title: "Erro",
-                    description: "Erro ao deletar conta",
-                    duration: 3000,
-                    variant: "destructive",
-                    color: "red",
-                })
+                Notification('error', 'Erro ao deletar conta')
             }
         }
         

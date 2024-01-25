@@ -4,23 +4,21 @@ import InputPrimario from '../InputPrimario'
 import { addDoc, arrayUnion, collection, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db } from '@/services/firebaseConnection'
 
-import { useToast } from "@/components/ui/use-toast"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { DebtsProps } from '@/interfaces/allInterfaces'
 
 import { RegisterDebtProps } from '@/interfaces/allInterfaces'
+import Notification from '../Notifier/Notification'
 
 const RegisterDebtForUser = ({data} : { data: RegisterDebtProps | undefined}) => {
 
-    console.log(data)
     const [qtd, setQtd] = useState<number>(1)
     const [item,setItem] = useState<string>('')
     const [value,setValue] = useState<number>(0)
     const [total, setTotal] = useState<number>(0)
 
-    const { toast } = useToast()
 
     async function onSubmit() {
         let formatter = new Intl.DateTimeFormat('pt-BR');
@@ -45,23 +43,9 @@ const RegisterDebtForUser = ({data} : { data: RegisterDebtProps | undefined}) =>
             await updateDoc(debtRef, {
                 debts: arrayUnion(updatedData)
             });
-            window.location.reload()
-            toast({
-                title: "Sucesso",
-                description: "Conta atualizada com sucesso",
-                duration: 3000,
-                variant: "destructive",
-                color: "green",
-            });
+            Notification('success', 'Dívida cadastrada com sucesso')
         } catch (error) {
-            console.error("Erro ao atualizar dívida:", error);
-            toast({
-                title: "Erro",
-                description: "Erro ao atualizar dívida",
-                duration: 3000,
-                variant: "destructive",
-                color: "red",
-            });
+            Notification('error', 'Erro ao cadastrar dívida')
         }
     }
 
@@ -73,10 +57,6 @@ const RegisterDebtForUser = ({data} : { data: RegisterDebtProps | undefined}) =>
     },[qtd,value])
 
     useEffect(() => {
-        console.log(`QTD: `, qtd)
-        console.log(`ITEM: `, item)
-        console.log(`VALUE: `, value)
-        console.log(`TOTAL: `, total)
         if (isNaN(qtd)) {
             setQtd(1)
         }

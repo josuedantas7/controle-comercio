@@ -2,13 +2,13 @@
 import InputPrimario from '@/components/InputPrimario'
 import { AuthContext } from '@/contexts/AuthContext';
 import { auth } from '@/services/firebaseConnection';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import React, { useContext, useState } from 'react'
 import { CgProfile } from "react-icons/cg";
 import { useRouter } from 'next/navigation'
-import { useToast } from "@/components/ui/use-toast"
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import Notification from '@/components/Notifier/Notification';
 
 interface UserProps{
   name: string
@@ -21,7 +21,6 @@ const Cadastro = () => {
   const { signed, loading, user, login } = useContext(AuthContext);
 
   const router = useRouter()
-  const { toast } = useToast()
 
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -40,24 +39,12 @@ const Cadastro = () => {
         await updateProfile(user.user, {
             displayName: data.name
         })
-        console.log(user)
         login(user?.user.email, user.user.displayName, user.user.uid)
-        toast({
-            title: "Cadastro efetuado com sucesso",
-            description: "Você será redirecionado para a página inicial",
-            duration: 2000,
-            variant: "destructive"
-        })
+        Notification('success', 'Usuário cadastrado com sucesso')
         router.push('/')
     })
     .catch((err) => {
-        console.log(err)
-        toast({
-            title: "Erro ao efetuar cadastro",
-            description: err.message,
-            duration: 2000,
-            variant: "destructive"
-        })
+        Notification('error', 'Erro ao cadastrar usuário')
     })
   }
 

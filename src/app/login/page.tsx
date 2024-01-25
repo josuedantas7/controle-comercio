@@ -6,9 +6,9 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useContext, useState } from 'react'
 import { CgProfile } from "react-icons/cg";
 import { useRouter } from 'next/navigation';
-import { useToast } from "@/components/ui/use-toast"
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Notification from '@/components/Notifier/Notification';
 
 interface UserProps{
   name: string | null
@@ -27,7 +27,6 @@ const Login = () => {
 
   const { signed, loading, user, login } = useContext(AuthContext);
 
-  const { toast } = useToast()
   const router = useRouter()
 
   const [email, setEmail] = useState<string>('')
@@ -43,22 +42,11 @@ const Login = () => {
     await signInWithEmailAndPassword(auth, data.email, data.password)
     .then((user) => {
       login(user?.user.email, user.user.displayName, user.user.uid)
-      toast({
-        title: "Login efetuado com sucesso",
-        description: "Você será redirecionado para a página inicial",
-        duration: 2000,
-        variant: "destructive"
-      })
+      Notification('success', 'Usuário logado com sucesso')
       router.push('/')
     })
     .catch((err) => {
-      console.log(err)
-      toast({
-        title: "Erro ao efetuar login",
-        description: err.message,
-        duration: 2000,
-        variant: "destructive"
-      })
+      Notification('error', 'Erro ao logar usuário')
     })
   }
 

@@ -2,14 +2,12 @@
 import { db } from '@/services/firebaseConnection'
 import { setDoc, collection, updateDoc, doc } from 'firebase/firestore'
 import React from 'react'
-import { useToast } from "@/components/ui/use-toast"
 
 import { RegisterDebtProps } from '@/interfaces/allInterfaces'
 import InputPrimario from '../InputPrimario'
+import Notification from '../Notifier/Notification'
 
 const EditUser = ({data}: {data: RegisterDebtProps | undefined}) => {
-
-    const { toast } = useToast()
 
     const[user, setUser] = React.useState<string>('')
 
@@ -22,22 +20,9 @@ const EditUser = ({data}: {data: RegisterDebtProps | undefined}) => {
                 criacao: data.criacao,
                 debts: data.debts
               })
-                window.location.reload()
-                toast({
-                    title: "Sucesso",
-                    description: "Conta editada com sucesso",
-                    duration: 3000,
-                    variant: "destructive",
-                    color: "green",
-                });
+                Notification('success', 'Conta editada com sucesso')
             } catch (error) {
-                toast({
-                    title: "Erro",
-                    description: "Erro ao editar conta",
-                    duration: 3000,
-                    variant: "destructive",
-                    color: "red",
-                })
+                Notification('error', 'Erro ao editar conta')
             }
         }
         

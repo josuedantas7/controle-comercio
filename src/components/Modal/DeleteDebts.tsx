@@ -2,13 +2,12 @@
 import { db } from '@/services/firebaseConnection'
 import { setDoc, collection, updateDoc, doc } from 'firebase/firestore'
 import React from 'react'
-import { useToast } from "@/components/ui/use-toast"
 
 import { RegisterDebtProps } from '@/interfaces/allInterfaces'
+import Notification from '../Notifier/Notification'
 
 const DeleteDebts = ({data}: {data: RegisterDebtProps | undefined}) => {
 
-    const { toast } = useToast()
 
     async function deleteDebts(){
         if (data) {
@@ -19,22 +18,9 @@ const DeleteDebts = ({data}: {data: RegisterDebtProps | undefined}) => {
                 criacao: data.criacao,
                 debts: []
               })
-                window.location.reload()
-                toast({
-                    title: "Sucesso",
-                    description: "Conta deletada com sucesso",
-                    duration: 3000,
-                    variant: "destructive",
-                    color: "green",
-                });
+                Notification('success', 'Conta deletada com sucesso')
             } catch (error) {
-                toast({
-                    title: "Erro",
-                    description: "Erro ao deletar conta",
-                    duration: 3000,
-                    variant: "destructive",
-                    color: "red",
-                })
+                Notification('error', 'Erro ao deletar conta')
             }
         }
         

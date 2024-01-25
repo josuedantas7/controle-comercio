@@ -48,7 +48,7 @@ function AuthProvider({children} : { children : ReactNode }) {
         return () => {
             onsub()
         }
-    },[user])
+    },[])
 
     async function logout(){
         await signOut(auth)
