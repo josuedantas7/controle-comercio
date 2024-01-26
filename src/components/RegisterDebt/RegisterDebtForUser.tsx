@@ -12,13 +12,15 @@ import { DebtsProps } from '@/interfaces/allInterfaces'
 import { RegisterDebtProps } from '@/interfaces/allInterfaces'
 import Notification from '../Notifier/Notification'
 
+import { useRouter } from 'next/navigation'
+
 const RegisterDebtForUser = ({data} : { data: RegisterDebtProps | undefined}) => {
 
     const [qtd, setQtd] = useState<number>(1)
     const [item,setItem] = useState<string>('')
     const [value,setValue] = useState<number>(0)
     const [total, setTotal] = useState<number>(0)
-
+    const router = useRouter()
 
     async function onSubmit() {
         let formatter = new Intl.DateTimeFormat('pt-BR');
@@ -85,7 +87,9 @@ const RegisterDebtForUser = ({data} : { data: RegisterDebtProps | undefined}) =>
                 <Label htmlFor="email">Valor total:</Label>
                 <p>{!isNaN(total) ? formatNumber(total) : '' }</p>
             </div>
-            <button className='w-full text-center bg-green-300 py-2 rounded-lg mt-2' onClick={() => onSubmit()}>Cadastrar</button>
+            <form method='dialog'>
+                <button className='w-full text-center bg-green-300 py-2 rounded-lg mt-2' onClick={() => onSubmit()}>Cadastrar</button>
+            </form>
         </div>
     )
 }
