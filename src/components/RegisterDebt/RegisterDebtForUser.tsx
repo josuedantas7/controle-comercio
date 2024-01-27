@@ -43,7 +43,7 @@ const RegisterDebtForUser = ({data} : { data: RegisterDebtProps | undefined}) =>
 
         try {
             await updateDoc(debtRef, {
-                debts: arrayUnion(updatedData)
+                debts: [updatedData, ...data.debts]
             });
             Notification('success', 'Dívida cadastrada com sucesso')
         } catch (error) {
